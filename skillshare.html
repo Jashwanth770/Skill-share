@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skillshare - Learn Programming</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.hide-scrollbar::-webkit-scrollbar {
+display: none;
+}
+.hide-scrollbar {
+-ms-overflow-style: none;
+scrollbar-width: none;
+}
+.group[data-hover-delay] > div {
+transition-delay: 300ms;
+}
+.group[data-hover-delay]:hover > div {
+transition-delay: 300ms;
+}
+.course-card:hover img {
+transform: scale(1.05);
+}
+.course-card img {
+transition: transform 0.3s ease-in-out;
+}
+[class^="ri-"] {
+transition: transform 0.2s ease-in-out;
+}
+[class^="ri-"]:active {
+transform: scale(0.9);
+}
+button:active [class^="ri-"],
+a:active [class^="ri-"] {
+transform: scale(0.9);
+}
+.hover-icon {
+transition: all 0.2s ease-in-out;
+}
+.hover-icon:hover {
+transform: scale(1.1);
+}
+.hover-icon:active {
+transform: scale(0.9);
+}
+.price-tag {
+background: linear-gradient(45deg, #2563eb, #4f46e5);
+}
+.rating-badge {
+background: linear-gradient(45deg, #fbbf24, #f59e0b);
+}
+.modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+z-index: 1000;
+}
+.modal.active {
+display: flex;
+}
+@keyframes slideUp {
+from {
+opacity: 0;
+transform: translateY(20px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+.modal.active > div {
+animation: slideUp 0.3s ease-out forwards;
+}
+@media (max-width: 640px) {
+.course-grid {
+grid-template-columns: 1fr;
+}
+}
+.hover-scale {
+transition: transform 0.2s ease-in-out;
+}
+.hover-scale:hover {
+transform: translateY(-4px);
+}
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#4F46E5',
+secondary: '#6366F1'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="bg-gray-900 min-h-screen text-gray-100">
+<header class="fixed top-0 left-0 right-0 bg-gray-900 border-b border-gray-800 shadow-lg z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+<div class="flex items-center space-x-8">
+<a href="#" onclick="showHomepage()" class="flex items-center space-x-2">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-graduation-cap-fill text-2xl text-primary"></i>
+</div>
+<span class="text-2xl font-['Pacifico'] text-primary">Skillshare</span>
+</a>
+<div class="relative group">
+<button class="flex items-center space-x-2 text-sm font-medium text-gray-300 hover:text-white">
+<span>Categories</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+<div class="absolute hidden group-hover:block w-64 mt-2 bg-gray-800 border border-gray-700 rounded-lg shadow-xl">
+<div class="p-4">
+<a href="#" class="flex items-center space-x-3 p-3 hover:bg-gray-700 rounded-lg">
+<i class="ri-code-line text-xl text-blue-400"></i>
+<div>
+<p class="font-medium text-gray-200">Development</p>
+<p class="text-xs text-gray-400">Web, Mobile & Software</p>
+</div>
+</a>
+<a href="#" class="flex items-center space-x-3 p-3 hover:bg-gray-700 rounded-lg">
+<i class="ri-database-2-line text-xl text-green-400"></i>
+<div>
+<p class="font-medium text-gray-200">Data Science</p>
+<p class="text-xs text-gray-400">ML, AI & Analytics</p>
+</div>
+</a>
+<a href="#" class="flex items-center space-x-3 p-3 hover:bg-gray-700 rounded-lg">
+<i class="ri-cloud-line text-xl text-purple-400"></i>
+<div>
+<p class="font-medium text-gray-200">Cloud Computing</p>
+<p class="text-xs text-gray-400">AWS, Azure & GCP</p>
+</div>
+</a>
+</div>
+</div>
+</div>
+<nav class="hidden md:flex space-x-6">
+<a href="#" class="text-sm font-medium text-gray-300 hover:text-white">My Learning</a>
+<a href="#" class="text-sm font-medium text-gray-300 hover:text-white">Business</a>
+<a href="#" class="text-sm font-medium text-gray-300 hover:text-white">Teach</a>
+</nav>
+</div>
+<div class="flex-1 max-w-2xl mx-8">
+<div class="relative">
+<input type="text" placeholder="Search for anything..." class="w-full pl-10 pr-4 py-2 text-sm bg-gray-800 border border-gray-700 text-gray-100 rounded-button focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+<div class="absolute left-3 top-0 h-full w-4 flex items-center justify-center">
+<i class="ri-search-line text-gray-400 hover-icon"></i>
+</div>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative group" data-hover-delay="300">
+<button id="cartBtn" class="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-white relative">
+<i class="ri-shopping-cart-line text-lg hover-icon"></i>
+<span class="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white text-xs flex items-center justify-center rounded-full transition-all duration-300 hover:scale-110">2</span>
+</button>
+<div class="hidden group-hover:block absolute right-0 mt-2 w-80 bg-gray-800 rounded-lg shadow-xl border border-gray-700 transition-all duration-300">
+<div class="p-4">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-medium">Shopping Cart (2)</h3>
+<button class="text-sm text-primary hover:text-primary/80">Clear All</button>
+</div>
+<div class="space-y-4 max-h-96 overflow-y-auto">
+<div class="flex gap-4 p-2 hover:bg-gray-700 rounded-lg">
+<img src="https://public.readdy.ai/ai/img_res/8a26436fddb783f54401d49fa1d5ec3a.jpg" alt="Course" class="w-16 h-16 object-cover rounded">
+<div class="flex-1">
+<h4 class="font-medium text-sm">Modern JavaScript from Zero to Hero</h4>
+<p class="text-sm text-gray-400">By Michael Anderson</p>
+<div class="flex justify-between items-center mt-1">
+<span class="text-primary font-medium">$99.99</span>
+<button class="text-red-400 hover:text-red-300">
+<i class="ri-delete-bin-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="flex gap-4 p-2 hover:bg-gray-700 rounded-lg">
+<img src="https://public.readdy.ai/ai/img_res/a1c616c37c9343d7cfd10fd2e20cdeb6.jpg" alt="Course" class="w-16 h-16 object-cover rounded">
+<div class="flex-1">
+<h4 class="font-medium text-sm">Python for Data Science and ML</h4>
+<p class="text-sm text-gray-400">By Sarah Johnson</p>
+<div class="flex justify-between items-center mt-1">
+<span class="text-primary font-medium">$89.99</span>
+<button class="text-red-400 hover:text-red-300">
+<i class="ri-delete-bin-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-700 mt-4 pt-4">
+<div class="flex justify-between items-center mb-4">
+<span class="text-gray-400">Subtotal:</span>
+<span class="font-medium">$189.98</span>
+</div>
+<button class="w-full px-4 py-2 bg-primary text-white font-medium !rounded-button hover:bg-primary/90">
+Checkout
+</button>
+</div>
+</div>
+</div>
+</div>
+<button id="notificationBtn" class="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-white relative">
+<i class="ri-notification-3-line text-lg hover-icon"></i>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+</button>
+<div id="authButtons" class="flex items-center space-x-4">
+<button id="loginBtn" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white border border-gray-700 hover:border-gray-600 !rounded-button whitespace-nowrap">Log in</button>
+<button id="signupBtn" class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary/90 !rounded-button whitespace-nowrap">Sign up</button>
+</div>
+<div id="userProfile" class="hidden relative">
+<button class="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-white">
+<img id="userAvatar" src="" alt="Profile" class="w-7 h-7 rounded-full">
+</button>
+<div class="absolute hidden right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-xl border border-gray-700 py-1 group-hover:block">
+<a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Profile</a>
+<a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">My Courses</a>
+<a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Settings</a>
+<hr class="my-1 border-gray-700">
+<button onclick="logout()" class="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Logout</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-16">
+<section class="relative bg-gray-900 overflow-hidden">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+<div class="text-white text-center lg:text-left">
+<h1 class="text-4xl md:text-5xl xl:text-6xl font-bold mb-4 md:mb-6">Transform Your Career with Expert-Led Coding Courses</h1>
+<p class="text-lg md:text-xl mb-6 md:mb-8 text-gray-100">Join over 100,000+ students who've launched successful tech careers. Start learning today with our industry-leading instructors.</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+<button onclick="window.location.href='#courses'" class="px-8 py-3 bg-white text-primary font-semibold !rounded-button hover:bg-gray-100 whitespace-nowrap transform hover:scale-105 transition-transform">Start Free Trial</button>
+<button onclick="window.location.href='#courses'" class="px-8 py-3 bg-transparent border-2 border-white text-white font-semibold !rounded-button hover:bg-white/10 whitespace-nowrap">View Courses</button>
+</div>
+<div class="mt-8 flex items-center justify-center lg:justify-start space-x-4">
+<div class="flex -space-x-2">
+<img src="https://public.readdy.ai/ai/img_res/88ed75e587d244a75f0ea5523fed4dbe.jpg" class="w-8 h-8 rounded-full border-2 border-white">
+<img src="https://public.readdy.ai/ai/img_res/0e3b2969c759d2266a64642e23114acc.jpg" class="w-8 h-8 rounded-full border-2 border-white">
+<img src="https://public.readdy.ai/ai/img_res/04a24d0e42e306103e76fc51a6732b0f.jpg" class="w-8 h-8 rounded-full border-2 border-white">
+</div>
+<p class="text-sm text-gray-100"><span class="font-bold">4.9/5</span> average rating from 10K+ students</p>
+</div>
+</div>
+<div class="relative mt-8 lg:mt-0 animate-float">
+<img src="https://public.readdy.ai/ai/img_res/96c28fd712df34562c5b0bf1fb65c79b.jpg" alt="Hero Image" class="rounded-lg shadow-2xl w-full">
+<div class="absolute -bottom-4 -right-4 bg-white p-4 rounded-lg shadow-xl hidden md:block">
+<div class="flex items-center space-x-2">
+<i class="ri-timer-line text-primary text-xl"></i>
+<div>
+<p class="text-gray-800 font-semibold">Start Learning Today</p>
+<p class="text-sm text-gray-600">Next cohort begins in 48 hours</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-12 bg-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-3xl font-bold mb-8">Popular Categories</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+<div class="bg-gray-700 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer card-3d">
+<div class="w-12 h-12 flex items-center justify-center mb-4">
+<i class="ri-javascript-line text-3xl text-yellow-500"></i>
+</div>
+<h3 class="font-semibold">JavaScript</h3>
+<p class="text-sm text-gray-600">248 courses</p>
+</div>
+<div class="bg-gray-700 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer card-3d">
+<div class="w-12 h-12 flex items-center justify-center mb-4">
+<i class="ri-python-line text-3xl text-blue-500"></i>
+</div>
+<h3 class="font-semibold">Python</h3>
+<p class="text-sm text-gray-600">312 courses</p>
+</div>
+<div class="bg-gray-700 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer card-3d">
+<div class="w-12 h-12 flex items-center justify-center mb-4">
+<i class="ri-reactjs-line text-3xl text-cyan-500"></i>
+</div>
+<h3 class="font-semibold">React</h3>
+<p class="text-sm text-gray-600">186 courses</p>
+</div>
+<div class="bg-gray-700 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer card-3d">
+<div class="w-12 h-12 flex items-center justify-center mb-4">
+<i class="ri-angular-line text-3xl text-red-500"></i>
+</div>
+<h3 class="font-semibold">Angular</h3>
+<p class="text-sm text-gray-600">142 courses</p>
+</div>
+<div class="bg-gray-700 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer card-3d">
+<div class="w-12 h-12 flex items-center justify-center mb-4">
+<i class="ri-vuejs-line text-3xl text-green-500"></i>
+</div>
+<h3 class="font-semibold">Vue.js</h3>
+<p class="text-sm text-gray-600">156 courses</p>
+</div>
+<div class="bg-gray-700 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer card-3d">
+<div class="w-12 h-12 flex items-center justify-center mb-4">
+<i class="ri-database-2-line text-3xl text-purple-500"></i>
+</div>
+<h3 class="font-semibold">SQL</h3>
+<p class="text-sm text-gray-600">98 courses</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<h2 class="text-3xl font-bold">Featured Courses</h2>
+<div class="flex gap-2 overflow-x-auto pb-2 hide-scrollbar">
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap active">All</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap">Beginner</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap">Intermediate</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap">Advanced</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap">Web Dev</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap">Mobile</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap">Data Science</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap">Cloud Computing</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap">DevOps</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap">Cybersecurity</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap">UI/UX Design</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap">Game Development</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap">Blockchain</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap">AI/ML</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 !rounded-button hover:bg-gray-200 whitespace-nowrap">IoT</button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div onclick="showCourseDetails('javascript')" class="bg-gray-800 rounded-lg border border-gray-700 hover:border-gray-600 transition-all duration-300 overflow-hidden group hover-3d cursor-pointer">
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/b3136f7f61bf997f7740c0f9ebd3564b.jpg" alt="Course thumbnail" class="w-full h-48 object-cover">
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+<span class="text-xs font-medium text-white">Featured Course</span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex items-center mb-2">
+<span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded">JavaScript</span>
+<span class="ml-2 text-sm text-gray-600">Beginner</span>
+</div>
+<h3 class="text-lg font-semibold mb-2">Modern JavaScript from Zero to Hero</h3>
+<p class="text-sm text-gray-600 mb-4">Master JavaScript fundamentals and advanced concepts through practical projects.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<img src="https://public.readdy.ai/ai/img_res/571cfa3b2f8d84b5c8a5fa5d29230b63.jpg" alt="Instructor" class="w-8 h-8 rounded-full">
+<span class="ml-2 text-sm font-medium">Michael Anderson</span>
+</div>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400"></i>
+<span class="ml-1 text-sm font-medium">4.8</span>
+<span class="ml-1 text-sm text-gray-600">(2.4k)</span>
+</div>
+</div>
+</div>
+</div>
+<div onclick="showCourseDetails('javascript')" class="bg-gray-800 rounded-lg border border-gray-700 hover:border-gray-600 transition-all duration-300 overflow-hidden group hover-3d cursor-pointer">
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/387f9683659f8405db9d63d15bd7d94a.jpg" alt="Course thumbnail" class="w-full h-48 object-cover">
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+<span class="text-xs font-medium text-white">Bestseller</span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex items-center mb-2">
+<span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded">Python</span>
+<span class="ml-2 text-sm text-gray-600">Intermediate</span>
+</div>
+<h3 class="text-lg font-semibold mb-2">Python for Data Science and ML</h3>
+<p class="text-sm text-gray-600 mb-4">Learn Python programming with focus on data analysis and machine learning.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<img src="https://public.readdy.ai/ai/img_res/ec9b6a7de969788d259d11fb0489a1a4.jpg" alt="Instructor" class="w-8 h-8 rounded-full">
+<span class="ml-2 text-sm font-medium">Sarah Johnson</span>
+</div>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400"></i>
+<span class="ml-1 text-sm font-medium">4.9</span>
+<span class="ml-1 text-sm text-gray-600">(1.8k)</span>
+</div>
+</div>
+</div>
+</div>
+<div onclick="showCourseDetails('javascript')" class="bg-gray-800 rounded-lg border border-gray-700 hover:border-gray-600 transition-all duration-300 overflow-hidden group hover-3d cursor-pointer">
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/c3ca369c9ca94ac27d6a8e0a10dc66ce.jpg" alt="Course thumbnail" class="w-full h-48 object-cover">
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+<span class="text-xs font-medium text-white">Hot & New</span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex items-center mb-2">
+<span class="px-2 py-1 text-xs font-medium bg-cyan-100 text-cyan-800 rounded">React</span>
+<span class="ml-2 text-sm text-gray-600">Advanced</span>
+</div>
+<h3 class="text-lg font-semibold mb-2">Advanced React and Redux</h3>
+<p class="text-sm text-gray-600 mb-4">Build complex applications with React, Redux, and modern JavaScript.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<img src="https://public.readdy.ai/ai/img_res/bd9ecb703f5d2097c06fb58b3e6551f4.jpg" alt="Instructor" class="w-8 h-8 rounded-full">
+<span class="ml-2 text-sm font-medium">David Chen</span>
+</div>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400"></i>
+<span class="ml-1 text-sm font-medium">4.7</span>
+<span class="ml-1 text-sm text-gray-600">(3.2k)</span>
+</div>
+</div>
+</div>
+</div>
+<div onclick="showCourseDetails('javascript')" class="bg-gray-800 rounded-lg border border-gray-700 hover:border-gray-600 transition-all duration-300 overflow-hidden group hover-3d cursor-pointer">
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/a5f3fc9e1c5e46b13fe38ae1487caf5c.jpg" alt="Course thumbnail" class="w-full h-48 object-cover">
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+<span class="text-xs font-medium text-white">Related Course</span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex items-center mb-2">
+<span class="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded">SQL</span>
+<span class="ml-2 text-sm text-gray-600">Beginner</span>
+</div>
+<h3 class="text-lg font-semibold mb-2">Complete SQL Masterclass</h3>
+<p class="text-sm text-gray-600 mb-4">Learn SQL from basics to advanced database management concepts.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<img src="https://public.readdy.ai/ai/img_res/a346b094bd50c08f49fc8277c4f5364b.jpg" alt="Instructor" class="w-8 h-8 rounded-full">
+<span class="ml-2 text-sm font-medium">Emma Wilson</span>
+</div>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400"></i>
+<span class="ml-1 text-sm font-medium">4.6</span>
+<span class="ml-1 text-sm text-gray-600">(1.5k)</span>
+</div>
+</div>
+</div>
+</div>
+<div onclick="showCourseDetails('javascript')" class="bg-gray-800 rounded-lg border border-gray-700 hover:border-gray-600 transition-all duration-300 overflow-hidden group hover-3d cursor-pointer">
+<img src="https://public.readdy.ai/ai/img_res/88821b2fc1589a947f66318119448844.jpg" alt="Course thumbnail" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center mb-2">
+<span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded">Go</span>
+<span class="ml-2 text-sm text-gray-600">Intermediate</span>
+</div>
+<h3 class="text-lg font-semibold mb-2">Go Programming for Backend Development</h3>
+<p class="text-sm text-gray-600 mb-4">Build high-performance backend services with Go programming language.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<img src="https://public.readdy.ai/ai/img_res/cc05d7b81c1cff939057587315dcc9da.jpg" alt="Instructor" class="w-8 h-8 rounded-full">
+<span class="ml-2 text-sm font-medium">Alex Zhang</span>
+</div>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400"></i>
+<span class="ml-1 text-sm font-medium">4.9</span>
+<span class="ml-1 text-sm text-gray-600">(1.2k)</span>
+</div>
+</div>
+</div>
+</div>
+<div onclick="showCourseDetails('javascript')" class="bg-gray-800 rounded-lg border border-gray-700 hover:border-gray-600 transition-all duration-300 overflow-hidden group hover-3d cursor-pointer">
+<img src="https://public.readdy.ai/ai/img_res/0b4313289521f03cc881570ad950098f.jpg" alt="Course thumbnail" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center mb-2">
+<span class="px-2 py-1 text-xs font-medium bg-cyan-100 text-cyan-800 rounded">Flutter</span>
+<span class="ml-2 text-sm text-gray-600">Advanced</span>
+</div>
+<h3 class="text-lg font-semibold mb-2">Flutter App Development Masterclass</h3>
+<p class="text-sm text-gray-600 mb-4">Create beautiful cross-platform mobile applications with Flutter and Dart.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<img src="https://public.readdy.ai/ai/img_res/ec6eb72864fc4876cc3c5e5bc080390f.jpg" alt="Instructor" class="w-8 h-8 rounded-full">
+<span class="ml-2 text-sm font-medium">Priya Patel</span>
+</div>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400"></i>
+<span class="ml-1 text-sm font-medium">4.8</span>
+<span class="ml-1 text-sm text-gray-600">(2.1k)</span>
+</div>
+</div>
+</div>
+</div>
+<div onclick="showCourseDetails('javascript')" class="bg-gray-800 rounded-lg border border-gray-700 hover:border-gray-600 transition-all duration-300 overflow-hidden group hover-3d cursor-pointer">
+<img src="https://public.readdy.ai/ai/img_res/d282434db90e80c67162c19c8979458d.jpg" alt="Course thumbnail" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center mb-2">
+<span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded">DevOps</span>
+<span class="ml-2 text-sm text-gray-600">Advanced</span>
+</div>
+<h3 class="text-lg font-semibold mb-2">Kubernetes for Cloud Native Applications</h3>
+<p class="text-sm text-gray-600 mb-4">Master container orchestration with Kubernetes in cloud environments.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<img src="https://public.readdy.ai/ai/img_res/e2141dfa52498b2a6c23bdd81c4c27de.jpg" alt="Instructor" class="w-8 h-8 rounded-full">
+<span class="ml-2 text-sm font-medium">Marcus Schmidt</span>
+</div>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400"></i>
+<span class="ml-1 text-sm font-medium">4.9</span>
+<span class="ml-1 text-sm text-gray-600">(1.7k)</span>
+</div>
+</div>
+</div>
+</div>
+<div onclick="showCourseDetails('javascript')" class="bg-gray-800 rounded-lg border border-gray-700 hover:border-gray-600 transition-all duration-300 overflow-hidden group hover-3d cursor-pointer">
+<img src="https://public.readdy.ai/ai/img_res/ae2e1f27325888f941d49dcccf8f2d60.jpg" alt="Course thumbnail" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center mb-2">
+<span class="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-800 rounded">Rust</span>
+<span class="ml-2 text-sm text-gray-600">Intermediate</span>
+</div>
+<h3 class="text-lg font-semibold mb-2">Systems Programming with Rust</h3>
+<p class="text-sm text-gray-600 mb-4">Learn safe and concurrent systems programming using Rust language.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<img src="https://public.readdy.ai/ai/img_res/93cadb4e7461b5c1fbfeede57ecda3b1.jpg" alt="Instructor" class="w-8 h-8 rounded-full">
+<span class="ml-2 text-sm font-medium">Sofia Anderson</span>
+</div>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400"></i>
+<span class="ml-1 text-sm font-medium">4.7</span>
+<span class="ml-1 text-sm text-gray-600">(980)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-12 bg-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-3xl font-bold mb-8">Why Choose Us</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="bg-gray-700 p-6 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center mb-4 bg-primary/10 rounded-lg animate-tilt">
+<i class="ri-video-line text-2xl text-primary"></i>
+</div>
+<h3 class="text-lg font-semibold mb-2">Expert-Led Video Courses</h3>
+<p class="text-gray-400">Learn from industry professionals with years of experience.</p>
+</div>
+<div class="bg-gray-700 p-6 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center mb-4 bg-primary/10 rounded-lg animate-tilt">
+<i class="ri-code-box-line text-2xl text-primary"></i>
+</div>
+<h3 class="text-lg font-semibold mb-2">Hands-On Projects</h3>
+<p class="text-gray-400">Build real-world applications to reinforce your learning.</p>
+</div>
+<div class="bg-gray-700 p-6 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center mb-4 bg-primary/10 rounded-lg animate-tilt">
+<i class="ri-community-line text-2xl text-primary"></i>
+</div>
+<h3 class="text-lg font-semibold mb-2">Community Support</h3>
+<p class="text-gray-400">Connect with fellow learners and get help when needed.</p>
+</div>
+<div class="bg-gray-700 p-6 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center mb-4 bg-primary/10 rounded-lg animate-tilt">
+<i class="ri-certificate-line text-2xl text-primary"></i>
+</div>
+<h3 class="text-lg font-semibold mb-2">Certificates</h3>
+<p class="text-gray-400">Earn recognized certificates upon course completion.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-12 bg-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-12">
+<h2 class="text-3xl font-bold mb-4">Student Success Stories</h2>
+<p class="text-gray-400 max-w-2xl mx-auto">Hear from our successful graduates who have transformed their careers through our courses.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="bg-white p-6 rounded-lg shadow-sm">
+<div class="flex items-center mb-4">
+<img src="https://public.readdy.ai/ai/img_res/6ca41376a8399693a792ed853f5566e8.jpg" alt="Student" class="w-12 h-12 rounded-full">
+<div class="ml-4">
+<h4 class="font-semibold">James Wilson</h4>
+<p class="text-sm text-gray-600">Software Developer at Google</p>
+</div>
+</div>
+<p class="text-gray-400">"The JavaScript course helped me land my dream job. The practical projects and expert guidance made all the difference."</p>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm">
+<div class="flex items-center mb-4">
+<img src="https://public.readdy.ai/ai/img_res/97af00f3204f38ca7d0d4007d3ebfc59.jpg" alt="Student" class="w-12 h-12 rounded-full">
+<div class="ml-4">
+<h4 class="font-semibold">Emily Rodriguez</h4>
+<p class="text-sm text-gray-600">Data Scientist at Amazon</p>
+</div>
+</div>
+<p class="text-gray-400">"The Python for Data Science course provided me with the skills I needed to transition into a data science role."</p>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm">
+<div class="flex items-center mb-4">
+<img src="https://public.readdy.ai/ai/img_res/e4afbb8f9ccec443a0e0aa11ceb279ac.jpg" alt="Student" class="w-12 h-12 rounded-full">
+<div class="ml-4">
+<h4 class="font-semibold">Alex Thompson</h4>
+<p class="text-sm text-gray-600">Frontend Developer at Meta</p>
+</div>
+</div>
+<p class="text-gray-400">"The React course was comprehensive and up-to-date. It gave me the confidence to build complex web applications."</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 bg-gray-900">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-12">
+<h2 class="text-3xl font-bold mb-4">Latest Blog Posts</h2>
+<p class="text-gray-400 max-w-2xl mx-auto">Stay updated with the latest trends and insights in technology and programming.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="bg-gray-800 rounded-lg overflow-hidden hover:shadow-xl transition-shadow hover-3d">
+<img src="https://public.readdy.ai/ai/img_res/9f58328e46b4b90fdac179c28148d5a6.jpg" alt="Blog thumbnail" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center mb-4">
+<span class="text-sm text-gray-400">Feb 13, 2025</span>
+<span class="mx-2 text-gray-600">•</span>
+<span class="text-sm text-primary">Web Development</span>
+</div>
+<h3 class="text-lg font-semibold mb-2">The Future of Web Development: What to Expect in 2025</h3>
+<p class="text-gray-400 mb-4">Explore the latest trends and technologies shaping the future of web development.</p>
+<a href="#" class="text-primary hover:text-primary-dark">Read More →</a>
+</div>
+</div>
+<div class="bg-gray-800 rounded-lg overflow-hidden hover:shadow-xl transition-shadow hover-3d">
+<img src="https://public.readdy.ai/ai/img_res/1cb64c949edd81366a6287d6cb3dd0f6.jpg" alt="Blog thumbnail" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center mb-4">
+<span class="text-sm text-gray-400">Feb 12, 2025</span>
+<span class="mx-2 text-gray-600">•</span>
+<span class="text-sm text-primary">Data Science</span>
+</div>
+<h3 class="text-lg font-semibold mb-2">Essential Data Science Skills for 2025</h3>
+<p class="text-gray-400 mb-4">Learn about the most in-demand skills for data scientists in the coming year.</p>
+<a href="#" class="text-primary hover:text-primary-dark">Read More →</a>
+</div>
+</div>
+<div class="bg-gray-800 rounded-lg overflow-hidden hover:shadow-xl transition-shadow hover-3d">
+<img src="https://public.readdy.ai/ai/img_res/424789d7cc5e81ade478cb4588bf22fa.jpg" alt="Blog thumbnail" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center mb-4">
+<span class="text-sm text-gray-400">Feb 11, 2025</span>
+<span class="mx-2 text-gray-600">•</span>
+<span class="text-sm text-primary">Mobile Development</span>
+</div>
+<h3 class="text-lg font-semibold mb-2">Building Cross-Platform Mobile Apps in 2025</h3>
+<p class="text-gray-400 mb-4">Discover the best practices for developing mobile applications that work everywhere.</p>
+<a href="#" class="text-primary hover:text-primary-dark">Read More →</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 bg-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-12">
+<h2 class="text-3xl font-bold mb-4">Upcoming Live Workshops</h2>
+<p class="text-gray-400 max-w-2xl mx-auto">Join our interactive live workshops led by industry experts.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="bg-gray-900 p-6 rounded-lg card-3d">
+<div class="flex items-center justify-between mb-4">
+<span class="px-3 py-1 text-xs font-medium bg-primary/20 text-primary rounded-full">Upcoming</span>
+<span class="text-sm text-gray-400">Feb 15, 2025</span>
+</div>
+<h3 class="text-lg font-semibold mb-2">Advanced React Patterns Workshop</h3>
+<p class="text-gray-400 mb-4">Learn advanced React patterns and best practices from senior developers.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<img src="https://public.readdy.ai/ai/img_res/95874e8a17d40b5ef74ca34eb015966e.jpg" alt="Instructor" class="w-8 h-8 rounded-full">
+<span class="ml-2 text-sm font-medium">Robert Clark</span>
+</div>
+<button class="px-4 py-2 text-sm font-medium text-primary border border-primary !rounded-button hover:bg-primary hover:text-white whitespace-nowrap">Register Now</button>
+</div>
+</div>
+<div class="bg-gray-900 p-6 rounded-lg card-3d">
+<div class="flex items-center justify-between mb-4">
+<span class="px-3 py-1 text-xs font-medium bg-primary/20 text-primary rounded-full">Upcoming</span>
+<span class="text-sm text-gray-400">Feb 18, 2025</span>
+</div>
+<h3 class="text-lg font-semibold mb-2">Machine Learning with Python</h3>
+<p class="text-gray-400 mb-4">Get hands-on experience with machine learning algorithms and Python.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<img src="https://public.readdy.ai/ai/img_res/38bc238f07e0125d2b2da3eb390cb440.jpg" alt="Instructor" class="w-8 h-8 rounded-full">
+<span class="ml-2 text-sm font-medium">Lisa Zhang</span>
+</div>
+<button class="px-4 py-2 text-sm font-medium text-primary border border-primary !rounded-button hover:bg-primary hover:text-white whitespace-nowrap">Register Now</button>
+</div>
+</div>
+<div class="bg-gray-900 p-6 rounded-lg card-3d">
+<div class="flex items-center justify-between mb-4">
+<span class="px-3 py-1 text-xs font-medium bg-primary/20 text-primary rounded-full">Upcoming</span>
+<span class="text-sm text-gray-400">Feb 20, 2025</span>
+</div>
+<h3 class="text-lg font-semibold mb-2">Full-Stack Development Bootcamp</h3>
+<p class="text-gray-400 mb-4">Build a complete web application from scratch in this intensive workshop.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<img src="https://readdy.ai/api/search-image?query=professional headshot of a male tech instructor, casual smart attire&width=100&height=100&orientation=squarish" alt="Instructor" class="w-8 h-8 rounded-full">
+<span class="ml-2 text-sm font-medium">Marcus Johnson</span>
+</div>
+<button class="px-4 py-2 text-sm font-medium text-primary border border-primary !rounded-button hover:bg-primary hover:text-white whitespace-nowrap">Register Now</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 md:py-24 bg-primary relative overflow-hidden">
+<div class="absolute inset-0 bg-[url('https://public.readdy.ai/ai/img_res/5384998454e7c4edce20f572cdb86fa2.jpg')] opacity-10"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+<h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">Ready to Transform Your Future?</h2>
+<p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">Join over 100,000+ students who have already started their journey to a successful tech career. Limited-time offer: Get 30% off on annual plans!</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+<button class="group px-8 py-4 bg-white text-primary font-semibold !rounded-button hover:bg-gray-100 whitespace-nowrap transform hover:scale-105 transition-all flex items-center">
+<span>Claim Your Discount</span>
+<i class="ri-arrow-right-line ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+</button>
+<div class="flex items-center space-x-4">
+<i class="ri-shield-check-line text-white/90 text-xl"></i>
+<p class="text-white/90 text-sm">30-day money-back guarantee</p>
+</div>
+</div>
+<div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="text-center">
+<p class="text-3xl font-bold text-white">100K+</p>
+<p class="text-white/80">Active Students</p>
+</div>
+<div class="text-center">
+<p class="text-3xl font-bold text-white">95%</p>
+<p class="text-white/80">Completion Rate</p>
+</div>
+<div class="text-center">
+<p class="text-3xl font-bold text-white">4.9/5</p>
+<p class="text-white/80">Student Rating</p>
+</div>
+<div class="text-center">
+<p class="text-3xl font-bold text-white">85%</p>
+<p class="text-white/80">Career Transition</p>
+</div>
+</div>
+</div>
+</section>
+<section id="my-courses" class="py-16 bg-gray-900 hidden min-h-screen">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-3xl font-bold">My Learning</h2>
+<div class="flex space-x-4">
+<button class="px-4 py-2 text-sm font-medium text-gray-300 bg-gray-800 !rounded-button hover:bg-gray-700 whitespace-nowrap active">All Courses</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-300 bg-gray-800 !rounded-button hover:bg-gray-700 whitespace-nowrap">In Progress</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-300 bg-gray-800 !rounded-button hover:bg-gray-700 whitespace-nowrap">Completed</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2">
+<div class="grid grid-cols-1 gap-6">
+<div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-gray-600">
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/8900856a1da00e67c7ab4d282c968cd8.jpg" alt="Course thumbnail" class="w-full h-48 object-cover">
+<div class="absolute top-2 right-2 px-2 py-1 bg-green-500 text-white text-xs rounded-full">75% Complete</div>
+</div>
+<div class="p-6">
+<h3 class="text-lg font-semibold mb-2">Modern JavaScript from Zero to Hero</h3>
+<div class="flex items-center mb-4">
+<div class="w-full bg-gray-700 rounded-full h-2">
+<div class="bg-green-500 h-2 rounded-full" style="width: 75%"></div>
+</div>
+<span class="ml-2 text-sm text-gray-400">24/32 lessons</span>
+</div>
+<div class="flex items-center justify-between">
+<button class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary/90 !rounded-button">Continue Learning</button>
+<button class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
+<i class="ri-more-2-fill hover-icon"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-gray-600">
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/8a1b1f6d53db29f0d8e0c65bca0c08ad.jpg" alt="Course thumbnail" class="w-full h-48 object-cover">
+<div class="absolute top-2 right-2 px-2 py-1 bg-blue-500 text-white text-xs rounded-full">45% Complete</div>
+</div>
+<div class="p-6">
+<h3 class="text-lg font-semibold mb-2">Python for Data Science and ML</h3>
+<div class="flex items-center mb-4">
+<div class="w-full bg-gray-700 rounded-full h-2">
+<div class="bg-blue-500 h-2 rounded-full" style="width: 45%"></div>
+</div>
+<span class="ml-2 text-sm text-gray-400">18/40 lessons</span>
+</div>
+<div class="flex items-center justify-between">
+<button class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary/90 !rounded-button">Continue Learning</button>
+<button class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
+<i class="ri-more-2-fill hover-icon"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-gray-600">
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/16dacea1bcbf29345d07ec7be12521b0.jpg" alt="Course thumbnail" class="w-full h-48 object-cover">
+<div class="absolute top-2 right-2 px-2 py-1 bg-yellow-500 text-white text-xs rounded-full">15% Complete</div>
+</div>
+<div class="p-6">
+<h3 class="text-lg font-semibold mb-2">Advanced React and Redux</h3>
+<div class="flex items-center mb-4">
+<div class="w-full bg-gray-700 rounded-full h-2">
+<div class="bg-yellow-500 h-2 rounded-full" style="width: 15%"></div>
+</div>
+<span class="ml-2 text-sm text-gray-400">6/40 lessons</span>
+</div>
+<div class="flex items-center justify-between">
+<button class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary/90 !rounded-button">Continue Learning</button>
+<button class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
+<i class="ri-more-2-fill hover-icon"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-1">
+<div class="bg-gray-800 rounded-lg p-6 mb-6">
+<h3 class="text-xl font-semibold mb-6">Learning Statistics</h3>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-lg">
+<i class="ri-time-line text-2xl text-primary"></i>
+</div>
+<div class="ml-4">
+<p class="font-medium">Total Learning Time</p>
+<p class="text-sm text-gray-400">124 hours</p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<div class="w-12 h-12 flex items-center justify-center bg-green-500/10 rounded-lg">
+<i class="ri-check-line text-2xl text-green-500"></i>
+</div>
+<div class="ml-4">
+<p class="font-medium">Completed Lessons</p>
+<p class="text-sm text-gray-400">48 lessons</p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<div class="w-12 h-12 flex items-center justify-center bg-yellow-500/10 rounded-lg">
+<i class="ri-medal-line text-2xl text-yellow-500"></i>
+</div>
+<div class="ml-4">
+<p class="font-medium">Certificates Earned</p>
+<p class="text-sm text-gray-400">8 certificates</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-gray-800 rounded-lg p-6">
+<h3 class="text-xl font-semibold mb-6">Learning Goals</h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-medium">Daily Learning Goal</span>
+<span class="text-sm text-gray-400">2/3 hours</span>
+</div>
+<div class="w-full bg-gray-700 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 66%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-medium">Weekly Course Completion</span>
+<span class="text-sm text-gray-400">3/5 courses</span>
+</div>
+<div class="w-full bg-gray-700 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 60%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-medium">Monthly Practice Projects</span>
+<span class="text-sm text-gray-400">4/6 projects</span>
+</div>
+<div class="w-full bg-gray-700 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 75%"></div>
+</div>
+</div>
+</div>
+<button class="mt-6 w-full px-4 py-2 text-sm font-medium text-primary border border-primary !rounded-button hover:bg-primary hover:text-white">Update Goals</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-3xl font-bold">My Courses</h2>
+<div class="flex space-x-4">
+<button class="px-4 py-2 text-sm font-medium text-gray-300 bg-gray-800 !rounded-button hover:bg-gray-700 whitespace-nowrap active">All Courses</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-300 bg-gray-800 !rounded-button hover:bg-gray-700 whitespace-nowrap">In Progress</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-300 bg-gray-800 !rounded-button hover:bg-gray-700 whitespace-nowrap">Completed</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-gray-600">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=modern computer setup with code editor showing javascript syntax, professional development environment, clean and minimal workspace&width=400&height=225&orientation=landscape" alt="Course thumbnail" class="w-full h-48 object-cover">
+<div class="absolute top-2 right-2 px-2 py-1 bg-green-500 text-white text-xs rounded-full">75% Complete</div>
+</div>
+<div class="p-6">
+<h3 class="text-lg font-semibold mb-2">Modern JavaScript from Zero to Hero</h3>
+<div class="flex items-center mb-4">
+<div class="w-full bg-gray-700 rounded-full h-2">
+<div class="bg-green-500 h-2 rounded-full" style="width: 75%"></div>
+</div>
+<span class="ml-2 text-sm text-gray-400">24/32 lessons</span>
+</div>
+<div class="flex items-center justify-between">
+<button class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary/90 !rounded-button">Continue Learning</button>
+<button class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
+<i class="ri-more-2-fill hover-icon"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-gray-600">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=modern computer setup with code editor showing python code, professional development environment, clean and minimal workspace&width=400&height=225&orientation=landscape" alt="Course thumbnail" class="w-full h-48 object-cover">
+<div class="absolute top-2 right-2 px-2 py-1 bg-blue-500 text-white text-xs rounded-full">45% Complete</div>
+</div>
+<div class="p-6">
+<h3 class="text-lg font-semibold mb-2">Python for Data Science and ML</h3>
+<div class="flex items-center mb-4">
+<div class="w-full bg-gray-700 rounded-full h-2">
+<div class="bg-blue-500 h-2 rounded-full" style="width: 45%"></div>
+</div>
+<span class="ml-2 text-sm text-gray-400">18/40 lessons</span>
+</div>
+<div class="flex items-center justify-between">
+<button class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary/90 !rounded-button">Continue Learning</button>
+<button class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
+<i class="ri-more-2-fill hover-icon"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-gray-600">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=modern computer setup with code editor showing react components, professional development environment, clean and minimal workspace&width=400&height=225&orientation=landscape" alt="Course thumbnail" class="w-full h-48 object-cover">
+<div class="absolute top-2 right-2 px-2 py-1 bg-yellow-500 text-white text-xs rounded-full">15% Complete</div>
+</div>
+<div class="p-6">
+<h3 class="text-lg font-semibold mb-2">Advanced React and Redux</h3>
+<div class="flex items-center mb-4">
+<div class="w-full bg-gray-700 rounded-full h-2">
+<div class="bg-yellow-500 h-2 rounded-full" style="width: 15%"></div>
+</div>
+<span class="ml-2 text-sm text-gray-400">6/40 lessons</span>
+</div>
+<div class="flex items-center justify-between">
+<button class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary/90 !rounded-button">Continue Learning</button>
+<button class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
+<i class="ri-more-2-fill hover-icon"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<h3 class="text-xl font-semibold mb-6">Learning Statistics</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-gray-800 p-6 rounded-lg">
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-lg">
+<i class="ri-time-line text-2xl text-primary"></i>
+</div>
+<span class="text-2xl font-bold">124h</span>
+</div>
+<h4 class="font-medium">Total Learning Time</h4>
+<p class="text-sm text-gray-400">Across all courses</p>
+</div>
+<div class="bg-gray-800 p-6 rounded-lg">
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 flex items-center justify-center bg-green-500/10 rounded-lg">
+<i class="ri-check-line text-2xl text-green-500"></i>
+</div>
+<span class="text-2xl font-bold">48</span>
+</div>
+<h4 class="font-medium">Completed Lessons</h4>
+<p class="text-sm text-gray-400">Keep up the good work!</p>
+</div>
+<div class="bg-gray-800 p-6 rounded-lg">
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 flex items-center justify-center bg-yellow-500/10 rounded-lg">
+<i class="ri-medal-line text-2xl text-yellow-500"></i>
+</div>
+<span class="text-2xl font-bold">8</span>
+</div>
+<h4 class="font-medium">Certificates Earned</h4>
+<p class="text-sm text-gray-400">View all certificates</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="course-details" class="py-16 bg-gray-900 hidden">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between mb-8">
+<button onclick="goBack()" class="flex items-center text-gray-400 hover:text-white">
+<i class="ri-arrow-left-line mr-2"></i>
+Back to Courses
+</button>
+<div class="flex items-center space-x-4">
+<button class="px-4 py-2 text-sm font-medium text-gray-300 bg-gray-800 !rounded-button hover:bg-gray-700 whitespace-nowrap">
+<i class="ri-share-line mr-2"></i>Share
+</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-300 bg-gray-800 !rounded-button hover:bg-gray-700 whitespace-nowrap">
+<i class="ri-heart-line mr-2"></i>Wishlist
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2">
+<img src="https://public.readdy.ai/ai/img_res/4f73b9ad0834f16df737323344b70071.jpg" alt="Course thumbnail" class="w-full h-96 object-cover rounded-lg mb-8">
+<div class="bg-gray-800 p-8 rounded-lg">
+<div class="relative w-full h-48 mb-6 overflow-hidden rounded-lg group">
+<img src="https://readdy.ai/api/search-image?query=modern computer setup with code editor showing javascript syntax, professional development environment, clean and minimal workspace&width=800&height=450&orientation=landscape" alt="Course thumbnail" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4">
+<span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded">Featured Course</span>
+</div>
+</div>
+<h1 class="text-3xl font-bold mb-4">Modern JavaScript from Zero to Hero</h1>
+<div class="flex items-center mb-6">
+<div class="flex items-center mr-6">
+<i class="ri-time-line mr-2 text-gray-400"></i>
+<span>42 hours</span>
+</div>
+<div class="flex items-center mr-6">
+<i class="ri-file-list-line mr-2 text-gray-400"></i>
+<span>36 lessons</span>
+</div>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400"></i>
+<span class="ml-1">4.8 (2.4k reviews)</span>
+</div>
+</div>
+<div class="prose prose-invert max-w-none">
+<h2 class="text-xl font-semibold mb-4">Course Description</h2>
+<p class="mb-4">Master JavaScript from the ground up in this comprehensive course. Perfect for beginners and intermediate developers looking to strengthen their JavaScript skills.</p>
+<h2 class="text-xl font-semibold mb-4">What You'll Learn</h2>
+<ul class="space-y-2 mb-6">
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+JavaScript fundamentals and ES6+ features
+</li>
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+DOM manipulation and event handling
+</li>
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+Asynchronous programming with Promises
+</li>
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+Object-oriented programming in JavaScript
+</li>
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+Modern JavaScript tools and best practices
+</li>
+</ul>
+<h2 class="text-xl font-semibold mb-4">Course Curriculum</h2>
+<div class="space-y-4">
+<div class="bg-gray-700 p-4 rounded-lg">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-semibold">1. Getting Started with JavaScript</h3>
+<span class="text-sm text-gray-400">3 lessons</span>
+</div>
+<ul class="space-y-2">
+<li class="flex items-center text-sm">
+<i class="ri-play-circle-line mr-2 text-gray-400"></i>
+Introduction to JavaScript
+</li>
+<li class="flex items-center text-sm">
+<i class="ri-play-circle-line mr-2 text-gray-400"></i>
+Setting Up Your Development Environment
+</li>
+<li class="flex items-center text-sm">
+<i class="ri-play-circle-line mr-2 text-gray-400"></i>
+Your First JavaScript Program
+</li>
+</ul>
+</div>
+<div class="bg-gray-700 p-4 rounded-lg">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-semibold">2. JavaScript Fundamentals</h3>
+<span class="text-sm text-gray-400">5 lessons</span>
+</div>
+<ul class="space-y-2">
+<li class="flex items-center text-sm">
+<i class="ri-play-circle-line mr-2 text-gray-400"></i>
+Variables and Data Types
+</li>
+<li class="flex items-center text-sm">
+<i class="ri-play-circle-line mr-2 text-gray-400"></i>
+Operators and Control Flow
+</li>
+<li class="flex items-center text-sm">
+<i class="ri-play-circle-line mr-2 text-gray-400"></i>
+Functions and Scope
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-1">
+<div class="bg-gray-800 p-6 rounded-lg sticky top-24">
+<div class="flex items-center justify-between mb-4">
+<div class="text-3xl font-bold">$99.99</div>
+<div class="text-sm text-gray-400">
+<span class="line-through">$199.99</span>
+<span class="ml-2 text-green-500">50% off</span>
+</div>
+</div>
+<div class="flex flex-col space-y-4">
+<button class="w-full px-6 py-3 bg-primary text-white font-semibold !rounded-button hover:bg-primary/90 flex items-center justify-center">
+<i class="ri-shopping-cart-line mr-2"></i>Buy now
+</button>
+<button class="w-full px-6 py-3 border border-primary text-primary font-semibold !rounded-button hover:bg-primary/10 flex items-center justify-center">
+<i class="ri-heart-line mr-2"></i>Add to wishlist
+</button>
+</div>
+<div class="mt-6 text-sm text-center text-gray-400">30-day money-back guarantee</div>
+<div class="space-y-4">
+<div class="flex items-center">
+<i class="ri-time-line mr-3 text-gray-400"></i>
+<div>
+<h4 class="font-medium">Lifetime Access</h4>
+<p class="text-sm text-gray-400">Learn at your own pace</p>
+</div>
+</div>
+<div class="flex items-center">
+<i class="ri-file-text-line mr-3 text-gray-400"></i>
+<div>
+<h4 class="font-medium">Certificate</h4>
+<p class="text-sm text-gray-400">Get certified upon completion</p>
+</div>
+</div>
+<div class="flex items-center">
+<i class="ri-customer-service-2-line mr-3 text-gray-400"></i>
+<div>
+<h4 class="font-medium">Support</h4>
+<p class="text-sm text-gray-400">24/7 instructor support</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-gray-900 text-white py-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div>
+<a href="#" onclick="showHomepage()" class="flex items-center space-x-2">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-graduation-cap-fill text-xl text-primary"></i>
+</div>
+<h3 class="text-xl font-['Pacifico'] text-primary">Skillshare</h3>
+</a>
+<p class="text-gray-400">Learn programming from expert instructors. Start your journey today.</p>
+</div>
+<div>
+<h4 class="font-semibold mb-4">Quick Links</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white">Courses</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Categories</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Pricing</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold mb-4">Support</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white">Help Center</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold mb-4">Newsletter</h4>
+<p class="text-gray-400 mb-4">Subscribe to get updates on new courses and features.</p>
+<div class="flex">
+<input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 text-sm bg-gray-700 text-gray-100 border-gray-600 rounded-l-button focus:outline-none">
+<button class="px-4 py-2 bg-primary text-white font-medium rounded-r-button whitespace-nowrap">Subscribe</button>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-800 mt-12 pt-8 text-center">
+<p class="text-gray-400">&copy; 2025 Skillshare. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<div id="loginModal" class="modal">
+<div class="bg-gray-800 w-full max-w-md mx-auto mt-24 rounded-lg shadow-xl">
+<div class="p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xl font-semibold">Log in to your account</h3>
+<button class="closeModal text-gray-400 hover:text-gray-500">
+<i class="ri-close-line text-xl hover-icon"></i>
+</button>
+</div>
+<form>
+<div class="mb-4">
+<label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+<input type="email" class="w-full px-4 py-2 text-sm border border-gray-600 bg-gray-700 text-gray-100 rounded-button focus:outline-none focus:border-primary" required>
+</div>
+<div class="mb-4">
+<label class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+<input type="password" class="w-full px-4 py-2 text-sm border border-gray-600 bg-gray-700 text-gray-100 rounded-button focus:outline-none focus:border-primary" required>
+</div>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center">
+<input type="checkbox" id="remember" class="w-4 h-4 border-gray-600 rounded text-primary focus:ring-primary">
+<label for="remember" class="ml-2 text-sm text-gray-400">Remember me</label>
+</div>
+<a href="#" class="text-sm text-primary hover:text-primary-dark">Forgot password?</a>
+</div>
+<button type="submit" class="w-full px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-dark !rounded-button">Log in</button>
+<div class="mt-6">
+<div class="relative">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-gray-600"></div>
+</div>
+<div class="relative flex justify-center text-sm">
+<span class="px-2 bg-gray-800 text-gray-400">Or continue with</span>
+</div>
+</div>
+<div class="mt-6 grid grid-cols-3 gap-3">
+<button type="button" onclick="loginWithGoogle()" class="flex justify-center items-center px-4 py-2 border border-gray-600 rounded-button hover:bg-gray-700">
+<i class="ri-google-fill text-xl hover-icon"></i>
+</button>
+<button type="button" class="flex justify-center items-center px-4 py-2 border border-gray-600 rounded-button hover:bg-gray-700">
+<i class="ri-github-fill text-xl hover-icon"></i>
+</button>
+<button type="button" class="flex justify-center items-center px-4 py-2 border border-gray-600 rounded-button hover:bg-gray-700">
+<i class="ri-twitter-fill text-xl hover-icon"></i>
+</button>
+</div>
+</div>
+<p class="mt-6 text-center text-sm text-gray-400">
+Not a member?
+<button type="button" onclick="showSignupModal()" class="text-primary hover:text-primary-dark font-medium">Sign up now</button>
+</p>
+</form>
+</div>
+</div>
+</div>
+<div id="profileModal" class="modal">
+<div class="bg-gray-800 w-full max-w-2xl mx-auto mt-24 rounded-lg shadow-xl">
+<div class="p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xl font-semibold">Profile</h3>
+<button class="closeModal text-gray-400 hover:text-gray-500">
+<i class="ri-close-line text-xl hover-icon"></i>
+</button>
+</div>
+<div class="grid grid-cols-3 gap-6">
+<div class="col-span-1">
+<div class="flex flex-col items-center">
+<img id="profileAvatar" src="" alt="Profile" class="w-32 h-32 rounded-full mb-4">
+<button class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary/90 !rounded-button">Change Photo</button>
+</div>
+</div>
+<div class="col-span-2">
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+<input type="text" id="profileName" class="w-full px-4 py-2 text-sm border border-gray-600 bg-gray-700 text-gray-100 rounded-button focus:outline-none focus:border-primary">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+<input type="email" id="profileEmail" class="w-full px-4 py-2 text-sm border border-gray-600 bg-gray-700 text-gray-100 rounded-button focus:outline-none focus:border-primary" readonly>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-300 mb-2">Location</label>
+<input type="text" id="profileLocation" class="w-full px-4 py-2 text-sm border border-gray-600 bg-gray-700 text-gray-100 rounded-button focus:outline-none focus:border-primary">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-300 mb-2">Bio</label>
+<textarea id="profileBio" rows="3" class="w-full px-4 py-2 text-sm border border-gray-600 bg-gray-700 text-gray-100 rounded-button focus:outline-none focus:border-primary"></textarea>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-6 border-t border-gray-700 pt-6">
+<h4 class="font-semibold mb-4">Progress Overview</h4>
+<div class="grid grid-cols-3 gap-4">
+<div class="bg-gray-700 p-4 rounded-lg text-center">
+<div class="text-2xl font-bold text-primary" id="completedCourses">0</div>
+<div class="text-sm text-gray-400">Completed Courses</div>
+</div>
+<div class="bg-gray-700 p-4 rounded-lg text-center">
+<div class="text-2xl font-bold text-primary" id="activeCourses">0</div>
+<div class="text-sm text-gray-400">Active Courses</div>
+</div>
+<div class="bg-gray-700 p-4 rounded-lg text-center">
+<div class="text-2xl font-bold text-primary" id="certificates">0</div>
+<div class="text-sm text-gray-400">Certificates</div>
+</div>
+</div>
+</div>
+<div class="mt-6 flex justify-end">
+<button onclick="saveProfile()" class="px-6 py-2 text-sm font-medium text-white bg-primary hover:bg-primary/90 !rounded-button">Save Changes</button>
+</div>
+</div>
+</div>
+</div>
+<div id="helpSupportModal" class="modal">
+<div class="bg-gray-800 w-full max-w-2xl mx-auto mt-24 rounded-lg shadow-xl">
+<div class="p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xl font-semibold">Help & Support</h3>
+<button class="closeModal text-gray-400 hover:text-gray-500">
+<i class="ri-close-line text-xl hover-icon"></i>
+</button>
+</div>
+<div class="space-y-6">
+<div>
+<h4 class="font-medium mb-4">Frequently Asked Questions</h4>
+<div class="space-y-4">
+<div class="bg-gray-700 p-4 rounded-lg">
+<h5 class="font-medium mb-2">How do I reset my password?</h5>
+<p class="text-sm text-gray-400">Click on "Forgot password?" on the login page and follow the instructions sent to your email.</p>
+</div>
+<div class="bg-gray-700 p-4 rounded-lg">
+<h5 class="font-medium mb-2">How can I get a refund?</h5>
+<p class="text-sm text-gray-400">We offer a 30-day money-back guarantee. Contact our support team with your order details.</p>
+</div>
+<div class="bg-gray-700 p-4 rounded-lg">
+<h5 class="font-medium mb-2">How do I download course materials?</h5>
+<p class="text-sm text-gray-400">Course materials can be downloaded from the course page when you're enrolled.</p>
+</div>
+</div>
+</div>
+<div>
+<h4 class="font-medium mb-4">Contact Support</h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-gray-700 p-4 rounded-lg">
+<div class="flex items-center mb-2">
+<i class="ri-mail-line text-xl text-primary mr-2"></i>
+<h5 class="font-medium">Email Support</h5>
+</div>
+<p class="text-sm text-gray-400 mb-3">Get help within 24 hours</p>
+<button class="px-4 py-2 text-sm font-medium text-primary border border-primary !rounded-button hover:bg-primary hover:text-white">Send Email</button>
+</div>
+<div class="bg-gray-700 p-4 rounded-lg">
+<div class="flex items-center mb-2">
+<i class="ri-chat-1-line text-xl text-primary mr-2"></i>
+<h5 class="font-medium">Live Chat</h5>
+</div>
+<p class="text-sm text-gray-400 mb-3">Chat with us now</p>
+<button class="px-4 py-2 text-sm font-medium text-primary border border-primary !rounded-button hover:bg-primary hover:text-white">Start Chat</button>
+</div>
+</div>
+</div>
+<div>
+<h4 class="font-medium mb-4">Help Resources</h4>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<a href="#" class="bg-gray-700 p-4 rounded-lg hover:bg-gray-600 transition-colors">
+<i class="ri-book-2-line text-2xl text-primary mb-2"></i>
+<h5 class="font-medium mb-1">Documentation</h5>
+<p class="text-sm text-gray-400">Browse our guides</p>
+</a>
+<a href="#" class="bg-gray-700 p-4 rounded-lg hover:bg-gray-600 transition-colors">
+<i class="ri-video-line text-2xl text-primary mb-2"></i>
+<h5 class="font-medium mb-1">Video Tutorials</h5>
+<p class="text-sm text-gray-400">Watch & learn</p>
+</a>
+<a href="#" class="bg-gray-700 p-4 rounded-lg hover:bg-gray-600 transition-colors">
+<i class="ri-community-line text-2xl text-primary mb-2"></i>
+<h5 class="font-medium mb-1">Community</h5>
+<p class="text-sm text-gray-400">Join discussions</p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="settingsModal" class="modal">
+<div class="bg-gray-800 w-full max-w-2xl mx-auto mt-24 rounded-lg shadow-xl">
+<div class="p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xl font-semibold">Settings</h3>
+<button class="closeModal text-gray-400 hover:text-gray-500">
+<i class="ri-close-line text-xl hover-icon"></i>
+</button>
+</div>
+<div class="space-y-6">
+<div>
+<h4 class="font-medium mb-4">Notifications</h4>
+<div class="space-y-3">
+<label class="flex items-center">
+<input type="checkbox" id="emailNotifications" class="w-4 h-4 border-gray-600 rounded text-primary focus:ring-primary">
+<span class="ml-2 text-sm text-gray-300">Email Notifications</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" id="smsNotifications" class="w-4 h-4 border-gray-600 rounded text-primary focus:ring-primary">
+<span class="ml-2 text-sm text-gray-300">SMS Notifications</span>
+</label>
+</div>
+</div>
+<div>
+<h4 class="font-medium mb-4">Preferences</h4>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-gray-300 mb-2">Language</label>
+<select id="language" class="w-full px-4 py-2 text-sm border border-gray-600 bg-gray-700 text-gray-100 rounded-button focus:outline-none focus:border-primary">
+<option value="English">English</option>
+<option value="Spanish">Spanish</option>
+<option value="French">French</option>
+<option value="German">German</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-300 mb-2">Timezone</label>
+<select id="timezone" class="w-full px-4 py-2 text-sm border border-gray-600 bg-gray-700 text-gray-100 rounded-button focus:outline-none focus:border-primary">
+<option value="America/Los_Angeles">Pacific Time (PT)</option>
+<option value="America/New_York">Eastern Time (ET)</option>
+<option value="Europe/London">London (GMT)</option>
+<option value="Asia/Tokyo">Tokyo (JST)</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-6 flex justify-end">
+<button onclick="saveSettings()" class="px-6 py-2 text-sm font-medium text-white bg-primary hover:bg-primary/90 !rounded-button">Save Changes</button>
+</div>
+</div>
+</div>
+</div>
+<div id="signupModal" class="modal">
+<div class="bg-gray-800 w-full max-w-md mx-auto mt-24 rounded-lg shadow-xl">
+<div class="p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xl font-semibold">Create an account</h3>
+<button class="closeModal text-gray-400 hover:text-gray-500">
+<i class="ri-close-line text-xl hover-icon"></i>
+</button>
+</div>
+<form>
+<div class="mb-4">
+<label class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+<input type="text" class="w-full px-4 py-2 text-sm border border-gray-600 bg-gray-700 text-gray-100 rounded-button focus:outline-none focus:border-primary" required>
+</div>
+<div class="mb-4">
+<label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+<input type="email" class="w-full px-4 py-2 text-sm border border-gray-600 bg-gray-700 text-gray-100 rounded-button focus:outline-none focus:border-primary" required>
+</div>
+<div class="mb-4">
+<label class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+<input type="password" class="w-full px-4 py-2 text-sm border border-gray-600 bg-gray-700 text-gray-100 rounded-button focus:outline-none focus:border-primary" required>
+</div>
+<div class="mb-6">
+<label class="flex items-center">
+<input type="checkbox" class="w-4 h-4 border-gray-600 rounded text-primary focus:ring-primary">
+<span class="ml-2 text-sm text-gray-400">I agree to the <a href="#" class="text-primary hover:text-primary-dark">Terms of Service</a> and <a href="#" class="text-primary hover:text-primary-dark">Privacy Policy</a></span>
+</label>
+</div>
+<button type="submit" class="w-full px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-dark !rounded-button">Sign up</button>
+<div class="mt-6">
+<div class="relative">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-gray-600"></div>
+</div>
+<div class="relative flex justify-center text-sm">
+<span class="px-2 bg-gray-800 text-gray-400">Or continue with</span>
+</div>
+</div>
+<div class="mt-6 grid grid-cols-3 gap-3">
+<button type="button" onclick="loginWithGoogle()" class="flex justify-center items-center px-4 py-2 border border-gray-600 rounded-button hover:bg-gray-700">
+<i class="ri-google-fill text-xl hover-icon"></i>
+</button>
+<button type="button" class="flex justify-center items-center px-4 py-2 border border-gray-600 rounded-button hover:bg-gray-700">
+<i class="ri-github-fill text-xl hover-icon"></i>
+</button>
+<button type="button" class="flex justify-center items-center px-4 py-2 border border-gray-600 rounded-button hover:bg-gray-700">
+<i class="ri-twitter-fill text-xl hover-icon"></i>
+</button>
+</div>
+</div>
+<p class="mt-6 text-center text-sm text-gray-400">
+Already have an account?
+<button type="button" onclick="showLoginModal()" class="text-primary hover:text-primary-dark font-medium">Log in</button>
+</p>
+</form>
+</div>
+</div>
+</div>
+<script>
+const API_URL = 'http://localhost:3000/api';
+// Auth functions
+async function loginWithGoogle() {
+try {
+// Mock Google login response
+const mockGoogleUser = {
+id: 2,
+name: 'Sarah Miller',
+email: 'sarah.miller@gmail.com',
+avatar: 'https://public.readdy.ai/ai/img_res/c0e23a2bee6e55ecd7438aa5bcfa27bc.jpg',
+token: 'mock-google-jwt-token',
+role: 'Student',
+location: 'New York, NY',
+bio: 'Frontend developer passionate about creating beautiful user experiences.',
+joinDate: '2024-02-01',
+completedCourses: 8,
+activeCourses: 2,
+certificates: 5,
+preferences: {
+emailNotifications: true,
+smsNotifications: true,
+language: 'English',
+timezone: 'America/New_York'
+}
+};
+localStorage.setItem('token', mockGoogleUser.token);
+localStorage.setItem('user', JSON.stringify(mockGoogleUser));
+updateAuthUI(mockGoogleUser);
+document.getElementById('loginModal').classList.remove('active');
+document.getElementById('signupModal').classList.remove('active');
+showNotification('Successfully logged in with Google!');
+} catch (error) {
+showNotification(error.message, 'error');
+}
+}
+async function login(email, password) {
+try {
+// Mock login response for demo
+const mockUser = {
+id: 1,
+name: 'John Anderson',
+email: email,
+avatar: 'https://public.readdy.ai/ai/img_res/34862104169953efead25fa4047c6c01.jpg',
+token: 'mock-jwt-token',
+role: 'Student',
+location: 'San Francisco, CA',
+bio: 'Passionate about learning new technologies and building amazing things.',
+joinDate: '2024-01-15',
+completedCourses: 12,
+activeCourses: 3,
+certificates: 8,
+preferences: {
+emailNotifications: true,
+smsNotifications: false,
+language: 'English',
+timezone: 'America/Los_Angeles'
+}
+};
+localStorage.setItem('token', mockUser.token);
+localStorage.setItem('user', JSON.stringify(mockUser));
+updateAuthUI(mockUser);
+document.getElementById('loginModal').classList.remove('active');
+showNotification('Successfully logged in!');
+} catch (error) {
+showNotification(error.message, 'error');
+}
+}
+function updateAuthUI(user) {
+const authButtons = document.getElementById('authButtons');
+const userProfile = document.getElementById('userProfile');
+const userAvatar = document.getElementById('userAvatar');
+const myCoursesSection = document.getElementById('my-courses');
+if (window.location.hash === '#my-courses' && user) {
+document.querySelectorAll('section').forEach(section => section.classList.add('hidden'));
+myCoursesSection.classList.remove('hidden');
+}
+if (user) {
+authButtons.classList.add('hidden');
+userProfile.classList.remove('hidden');
+userAvatar.src = user.avatar || 'https://public.readdy.ai/ai/img_res/f979a4043a5f4b4c454a97e70e91086e.jpg';
+// Show profile dropdown on hover and click
+let dropdownTimeout;
+userProfile.addEventListener('mouseenter', () => {
+clearTimeout(dropdownTimeout);
+userProfile.querySelector('div').classList.remove('hidden');
+});
+userProfile.addEventListener('mouseleave', () => {
+dropdownTimeout = setTimeout(() => {
+userProfile.querySelector('div').classList.add('hidden');
+}, 300);
+});
+userProfile.addEventListener('click', (e) => {
+e.preventDefault();
+clearTimeout(dropdownTimeout);
+const dropdown = userProfile.querySelector('div');
+if(dropdown.classList.contains('hidden')) {
+dropdown.classList.remove('hidden');
+} else {
+dropdownTimeout = setTimeout(() => {
+dropdown.classList.add('hidden');
+}, 300);
+}
+});
+// Update profile menu with user info
+const profileMenu = userProfile.querySelector('div');
+profileMenu.innerHTML = `
+<div class="px-4 py-3 border-b border-gray-700">
+<p class="text-sm font-medium text-white">${user.name}</p>
+<p class="text-sm text-gray-400">${user.email}</p>
+<p class="text-xs text-gray-500 mt-1">${user.role} • Joined ${new Date(user.joinDate).toLocaleDateString()}</p>
+</div>
+<a href="#" onclick="showProfileModal()" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+<i class="ri-user-line mr-2"></i>Profile
+</a>
+<a href="#my-courses" onclick="showMyCourses(event)" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+<i class="ri-book-open-line mr-2"></i>My Courses (${user.activeCourses})
+</a>
+<a href="#" onclick="showCartModal()" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+<i class="ri-shopping-cart-line mr-2"></i>My Cart (2)
+</a>
+<a href="#" onclick="showMessagesModal()" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+<i class="ri-message-2-line mr-2"></i>Messages
+<span class="float-right bg-primary text-white text-xs px-1.5 py-0.5 rounded-full">3</span>
+</a>
+<a href="#" onclick="showNotificationsModal()" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+<i class="ri-notification-line mr-2"></i>Notifications
+<span class="float-right bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">5</span>
+</a>
+<hr class="my-1 border-gray-700">
+<a href="#" onclick="showLanguageModal()" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+<i class="ri-global-line mr-2"></i>Language
+<span class="float-right text-gray-400">English</span>
+</a>
+<a href="#" onclick="showSettingsModal()" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+<i class="ri-settings-3-line mr-2"></i>Account Settings
+</a>
+<a href="#" onclick="showHelpSupportModal()" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+<i class="ri-question-line mr-2"></i>Help & Support
+</a>
+<hr class="my-1 border-gray-700">
+<button onclick="logout()" class="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+<i class="ri-logout-box-line mr-2"></i>Logout
+</button>
+`;
+} else {
+authButtons.classList.remove('hidden');
+userProfile.classList.add('hidden');
+}
+}
+function logout() {
+localStorage.removeItem('token');
+localStorage.removeItem('user');
+updateAuthUI(null);
+showNotification('Successfully logged out!');
+}
+// Check auth status on page load
+const user = JSON.parse(localStorage.getItem('user'));
+if (user) {
+updateAuthUI(user);
+}
+async function signup(name, email, password) {
+try {
+const response = await fetch(`${API_URL}/auth/signup`, {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify({ name, email, password }),
+});
+const data = await response.json();
+if (response.ok) {
+localStorage.setItem('token', data.token);
+localStorage.setItem('user', JSON.stringify(data.user));
+window.location.reload();
+} else {
+throw new Error(data.message);
+}
+} catch (error) {
+showNotification(error.message, 'error');
+}
+}
+// Course functions
+async function getCourses() {
+try {
+const response = await fetch(`${API_URL}/courses`);
+const data = await response.json();
+if (response.ok) {
+return data;
+} else {
+throw new Error(data.message);
+}
+} catch (error) {
+showNotification(error.message, 'error');
+return [];
+}
+}
+async function getCourseDetails(courseId) {
+// Mock course data
+const mockCourses = {
+'javascript': {
+id: 'javascript',
+title: 'Modern JavaScript from Zero to Hero',
+thumbnail: 'https://readdy.ai/api/search-image?query=modern computer setup with code editor showing javascript syntax, professional development environment, clean and minimal workspace&width=800&height=450&orientation=landscape',
+instructor: 'Michael Anderson',
+duration: '42 hours',
+lessons: 36,
+rating: 4.8,
+reviews: 2400,
+price: 99.99,
+description: 'Master JavaScript from the ground up in this comprehensive course. Perfect for beginners and intermediate developers looking to strengthen their JavaScript skills.',
+curriculum: [
+{
+title: 'Getting Started with JavaScript',
+lessons: [
+'Introduction to JavaScript',
+'Setting Up Your Development Environment',
+'Your First JavaScript Program'
+]
+},
+{
+title: 'JavaScript Fundamentals',
+lessons: [
+'Variables and Data Types',
+'Operators and Control Flow',
+'Functions and Scope'
+]
+}
+]
+},
+'python': {
+id: 'python',
+title: 'Python for Data Science and ML',
+thumbnail: 'https://public.readdy.ai/ai/img_res/25bd468ba120d93da25da56c5f74a9fb.jpg',
+instructor: 'Sarah Johnson',
+duration: '38 hours',
+lessons: 32,
+rating: 4.9,
+reviews: 1800,
+price: 89.99,
+description: 'Learn Python programming with focus on data analysis and machine learning.',
+curriculum: [
+{
+title: 'Python Basics',
+lessons: [
+'Introduction to Python',
+'Data Types and Variables',
+'Control Structures'
+]
+},
+{
+title: 'Data Science Fundamentals',
+lessons: [
+'NumPy Arrays',
+'Pandas DataFrames',
+'Data Visualization'
+]
+}
+]
+}
+};
+return mockCourses[courseId] || null;
+}
+// UI functions
+function showNotification(message, type = 'success') {
+const notification = document.createElement('div');
+notification.className = `fixed top-4 right-4 p-4 rounded-lg text-white ${
+type === 'error' ? 'bg-red-500' : 'bg-green-500'
+} shadow-lg`;
+notification.style.animation = 'notificationSlide 3s forwards';
+notification.innerHTML = `
+  <div class="flex items-center">
+    <i class="ri-${type === 'error' ? 'error-warning' : 'checkbox-circle'}-line mr-2"></i>
+    <span>${message}</span>
+  </div>
+`;
+document.body.appendChild(notification);
+setTimeout(() => notification.remove(), 3000);
+}
+// Event Listeners
+document.getElementById('loginBtn').addEventListener('click', () => {
+document.getElementById('loginModal').classList.add('active');
+});
+document.getElementById('signupBtn').addEventListener('click', showSignupModal);
+function showSignupModal() {
+document.getElementById('loginModal').classList.remove('active');
+document.getElementById('signupModal').classList.add('active');
+}
+function showLoginModal() {
+document.getElementById('signupModal').classList.remove('active');
+document.getElementById('loginModal').classList.add('active');
+}
+document.querySelectorAll('.closeModal').forEach(button => {
+button.addEventListener('click', () => {
+document.querySelectorAll('.modal').forEach(modal => {
+modal.classList.remove('active');
+});
+});
+});
+document.querySelectorAll('.modal').forEach(modal => {
+modal.addEventListener('click', (e) => {
+if (e.target === modal) {
+modal.classList.remove('active');
+}
+});
+});
+document.querySelector('#loginModal form').addEventListener('submit', async (e) => {
+e.preventDefault();
+const email = e.target.querySelector('input[type="email"]').value;
+const password = e.target.querySelector('input[type="password"]').value;
+await login(email, password);
+});
+document.querySelector('#signupModal form').addEventListener('submit', async (e) => {
+e.preventDefault();
+const name = e.target.querySelector('input[type="text"]').value;
+const email = e.target.querySelector('input[type="email"]').value;
+const password = e.target.querySelector('input[type="password"]').value;
+await signup(name, email, password);
+});
+async function showCourseDetails(courseId) {
+const course = await getCourseDetails(courseId);
+if (course) {
+document.querySelectorAll('section').forEach(section => {
+section.classList.add('hidden');
+});
+document.getElementById('course-details').classList.remove('hidden');
+// Update course details in the DOM
+updateCourseDetailsUI(course);
+window.scrollTo(0, 0);
+}
+}
+function updateCourseDetailsUI(course) {
+const detailsSection = document.getElementById('course-details');
+// Update course image and title
+detailsSection.querySelector('img').src = course.thumbnail;
+detailsSection.querySelector('h1').textContent = course.title;
+// Update course stats
+const statsDiv = detailsSection.querySelector('.flex.items-center.mb-6');
+statsDiv.innerHTML = `
+<div class="flex items-center mr-6">
+<i class="ri-time-line mr-2 text-gray-400"></i>
+<span>${course.duration}</span>
+</div>
+<div class="flex items-center mr-6">
+<i class="ri-file-list-line mr-2 text-gray-400"></i>
+<span>${course.lessons} lessons</span>
+</div>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400"></i>
+<span class="ml-1">${course.rating} (${course.reviews} reviews)</span>
+</div>
+`;
+// Update course description
+detailsSection.querySelector('.prose p').textContent = course.description;
+// Update curriculum
+const curriculumDiv = detailsSection.querySelector('.space-y-4');
+curriculumDiv.innerHTML = course.curriculum.map((section, index) => `
+<div class="bg-gray-700 p-4 rounded-lg">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-semibold">${index + 1}. ${section.title}</h3>
+<span class="text-sm text-gray-400">${section.lessons.length} lessons</span>
+</div>
+<ul class="space-y-2">
+${section.lessons.map(lesson => `
+<li class="flex items-center text-sm">
+<i class="ri-play-circle-line mr-2 text-gray-400"></i>
+${lesson}
+</li>
+`).join('')}
+</ul>
+</div>
+`).join('');
+// Update price
+detailsSection.querySelector('.text-3xl.font-bold').textContent = `$${course.price}`;
+// Update instructor name if present
+const instructorElement = detailsSection.querySelector('.flex.items-center img');
+if (instructorElement) {
+instructorElement.nextElementSibling.textContent = course.instructor;
+}
+}
+function goBack() {
+document.getElementById('course-details').classList.add('hidden');
+document.querySelectorAll('section:not(#course-details)').forEach(section => {
+section.classList.remove('hidden');
+});
+}
+// Remove this event listener as we're now using inline onclick handlers
+// Initialize
+async function loginWithGithub() {
+try {
+// Mock GitHub login response
+const mockGithubUser = {
+id: 3,
+name: 'Alex Chen',
+email: 'alex.chen@github.com',
+avatar: 'https://public.readdy.ai/ai/img_res/10301cfec517e7224f6112d97d360f62.jpg',
+token: 'mock-github-jwt-token',
+role: 'Student',
+location: 'Seattle, WA',
+bio: 'Full-stack developer with a focus on cloud technologies.',
+joinDate: '2024-01-20',
+completedCourses: 15,
+activeCourses: 4,
+certificates: 10,
+preferences: {
+emailNotifications: true,
+smsNotifications: false,
+language: 'English',
+timezone: 'America/Los_Angeles'
+}
+};
+localStorage.setItem('token', mockGithubUser.token);
+localStorage.setItem('user', JSON.stringify(mockGithubUser));
+updateAuthUI(mockGithubUser);
+document.getElementById('loginModal').classList.remove('active');
+document.getElementById('signupModal').classList.remove('active');
+showNotification('Successfully logged in with GitHub!');
+} catch (error) {
+showNotification(error.message, 'error');
+}
+}
+async function loginWithTwitter() {
+try {
+// Mock Twitter login response
+const mockTwitterUser = {
+id: 4,
+name: 'Emma Wilson',
+email: 'emma.wilson@twitter.com',
+avatar: 'https://public.readdy.ai/ai/img_res/2816d6bb33262d11e15ddee6986774f2.jpg',
+token: 'mock-twitter-jwt-token',
+role: 'Student',
+location: 'London, UK',
+bio: 'UI/UX designer and frontend developer.',
+joinDate: '2024-02-10',
+completedCourses: 6,
+activeCourses: 2,
+certificates: 4,
+preferences: {
+emailNotifications: true,
+smsNotifications: true,
+language: 'English',
+timezone: 'Europe/London'
+}
+};
+localStorage.setItem('token', mockTwitterUser.token);
+localStorage.setItem('user', JSON.stringify(mockTwitterUser));
+updateAuthUI(mockTwitterUser);
+document.getElementById('loginModal').classList.remove('active');
+document.getElementById('signupModal').classList.remove('active');
+showNotification('Successfully logged in with Twitter!');
+} catch (error) {
+showNotification(error.message, 'error');
+}
+}
+async function init() {
+const courses = await getCourses();
+initializeCart();
+// Update courses in the DOM
+updateCoursesUI(courses);
+// Check if we should show my courses
+if (window.location.hash === '#my-courses' && JSON.parse(localStorage.getItem('user'))) {
+document.querySelectorAll('section').forEach(section => section.classList.add('hidden'));
+document.getElementById('my-courses').classList.remove('hidden');
+}
+}
+function showHomepage() {
+document.querySelectorAll('section').forEach(section => section.classList.remove('hidden'));
+document.getElementById('my-courses').classList.add('hidden');
+document.getElementById('course-details').classList.add('hidden');
+window.location.hash = '';
+}
+function showMyCourses(e) {
+e.preventDefault();
+const user = JSON.parse(localStorage.getItem('user'));
+if (user) {
+document.querySelectorAll('section').forEach(section => section.classList.add('hidden'));
+document.getElementById('my-courses').classList.remove('hidden');
+window.location.hash = 'my-courses';
+}
+}
+// Add event listener for hash change
+window.addEventListener('hashchange', () => {
+const user = JSON.parse(localStorage.getItem('user'));
+if (window.location.hash === '#my-courses' && user) {
+document.querySelectorAll('section').forEach(section => section.classList.add('hidden'));
+document.getElementById('my-courses').classList.remove('hidden');
+} else if (window.location.hash === '') {
+document.querySelectorAll('section').forEach(section => section.classList.remove('hidden'));
+document.getElementById('my-courses').classList.add('hidden');
+document.getElementById('course-details').classList.add('hidden');
+}
+});
+function updateCoursesUI(courses) {
+const coursesContainer = document.querySelector('.grid-cols-4');
+coursesContainer.innerHTML = courses.map(course => `
+<div class="course-card" data-course-id="${course.id}">
+<!-- Course card content -->
+</div>
+`).join('');
+}
+function showProfileModal() {
+const user = JSON.parse(localStorage.getItem('user'));
+if (user) {
+document.getElementById('profileModal').classList.add('active');
+document.getElementById('profileAvatar').src = user.avatar;
+document.getElementById('profileName').value = user.name;
+document.getElementById('profileEmail').value = user.email;
+document.getElementById('profileLocation').value = user.location;
+document.getElementById('profileBio').value = user.bio;
+document.getElementById('completedCourses').textContent = user.completedCourses;
+document.getElementById('activeCourses').textContent = user.activeCourses;
+document.getElementById('certificates').textContent = user.certificates;
+}
+}
+function showHelpSupportModal() {
+document.getElementById('helpSupportModal').classList.add('active');
+}
+function showSettingsModal() {
+const user = JSON.parse(localStorage.getItem('user'));
+if (user) {
+document.getElementById('settingsModal').classList.add('active');
+document.getElementById('emailNotifications').checked = user.preferences.emailNotifications;
+document.getElementById('smsNotifications').checked = user.preferences.smsNotifications;
+document.getElementById('language').value = user.preferences.language;
+document.getElementById('timezone').value = user.preferences.timezone;
+}
+}
+async function saveProfile() {
+const user = JSON.parse(localStorage.getItem('user'));
+if (user) {
+user.name = document.getElementById('profileName').value;
+user.location = document.getElementById('profileLocation').value;
+user.bio = document.getElementById('profileBio').value;
+localStorage.setItem('user', JSON.stringify(user));
+updateAuthUI(user);
+document.getElementById('profileModal').classList.remove('active');
+showNotification('Profile updated successfully!');
+}
+}
+async function saveSettings() {
+const user = JSON.parse(localStorage.getItem('user'));
+if (user) {
+user.preferences = {
+emailNotifications: document.getElementById('emailNotifications').checked,
+smsNotifications: document.getElementById('smsNotifications').checked,
+language: document.getElementById('language').value,
+timezone: document.getElementById('timezone').value
+};
+localStorage.setItem('user', JSON.stringify(user));
+document.getElementById('settingsModal').classList.remove('active');
+showNotification('Settings updated successfully!');
+}
+}
+init();
+</script>
+</body>
+</html>
